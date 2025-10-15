@@ -1,0 +1,198 @@
+/* Базовые токены */
+:root {
+  --tb-bg: #ffffff;
+  --tb-br: #e5e7eb;
+  --tb-btn: #f8fafc;
+  --tb-btn-br: #e5e7eb;
+  --tb-btn-active: #e0f2fe;
+  --tb-icon: #111827;
+}
+
+/* База тулбара */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid var(--tb-br);
+  border-radius: 12px;
+  background: var(--tb-bg);
+  margin-bottom: 8px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
+}
+
+.toolbar .select {
+  appearance: none;
+  background: var(--tb-btn);
+  color: var(--tb-icon);
+  border: 1px solid var(--tb-btn-br);
+  border-radius: 10px;
+  height: 34px;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.toolbar .sep {
+  width: 1px;
+  height: 22px;
+  background: var(--tb-br);
+  margin: 0 2px;
+}
+
+.toolbar .btn {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  background: var(--tb-btn);
+  color: var(--tb-icon);
+  border: 1px solid var(--tb-btn-br);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 140ms ease;
+}
+.toolbar .btn:hover { filter: brightness(0.97); }
+.toolbar .btn.active {
+  background: var(--tb-btn-active);
+  border-color: #38bdf8;
+}
+
+/* Variant A: Minimal */
+.toolbar--minimal {
+  border-radius: 14px;
+}
+.toolbar--minimal .btn {
+  background: #fff;
+  border-color: #eef2f7;
+  box-shadow: 0 1px 0 rgb(17 24 39 / 4%);
+}
+.toolbar--minimal .btn:hover {
+  box-shadow: 0 2px 8px rgb(17 24 39 / 8%);
+}
+.toolbar--minimal .select {
+  background: #fff;
+  border-color: #eef2f7;
+  box-shadow: 0 1px 0 rgb(17 24 39 / 4%);
+}
+
+/* Variant B: Segmented */
+.toolbar--segmented { gap: 10px; }
+.toolbar--segmented .seg {
+  display: inline-flex;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: 0 1px 0 rgb(17 24 39 / 4%);
+}
+.toolbar--segmented .seg .btn {
+  border: none;
+  border-right: 1px solid #e5e7eb;
+  border-radius: 0;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+}
+.toolbar--segmented .seg .btn:last-child { border-right: none; }
+.toolbar--segmented .seg .btn.active {
+  background: #eff6ff;
+  box-shadow: inset 0 0 0 1px #93c5fd;
+}
+.toolbar--segmented .select {
+  height: 36px;
+  border-radius: 999px;
+  padding: 0 14px;
+}
+
+/* Variant C: Glass */
+.toolbar--glass {
+  position: sticky;
+  top: 12px;
+  border: 1px solid rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(12px) saturate(120%);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+.toolbar--glass .btn,
+.toolbar--glass .select {
+  background: rgba(255,255,255,0.7);
+  border-color: rgba(255,255,255,0.7);
+}
+.toolbar--glass .btn.active {
+  background: rgba(224,242,254,0.85);
+}
+
+/* Группы/поповеры/цвета/спецсимволы */
+.toolbar .group { position: relative; }
+.toolbar .popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  display: grid;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 12px 32px rgb(0 0 0 / 16%);
+  z-index: 10;
+}
+.toolbar .popover .color {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+}
+.toolbar .popover .color.clear {
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  color: #ef4444;
+  background: #fff;
+}
+.toolbar .popover.chars { grid-template-columns: repeat(6, 32px); }
+.toolbar .popover .char {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Область редактора — мягкая карточка */
+.ProseMirror {
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 18px 20px;
+  min-height: 420px;
+  background: #fff;
+  color: #111827;
+  white-space: pre-wrap;
+  outline: none;
+}
+
+.ProseMirror h1 { font-size: 28px; margin: 16px 0 8px; }
+.ProseMirror h2 { font-size: 22px; margin: 14px 0 8px; }
+.ProseMirror h3 { font-size: 18px; margin: 12px 0 6px; }
+.ProseMirror p  { margin: 8px 0; }
+
+.ProseMirror blockquote {
+  border-left: 3px solid #93c5fd;
+  background: #f8fafc;
+  margin: 10px 0;
+  padding: 8px 12px;
+  color: #374151;
+}
+
+.ProseMirror ul { list-style: disc; padding-left: 24px; }
+.ProseMirror ol { list-style: decimal; padding-left: 24px; }
+.ProseMirror li { margin: 4px 0; }
+
+.ProseMirror a {
+  color: #2563eb;
+  text-decoration: underline;
+}

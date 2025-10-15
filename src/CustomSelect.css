@@ -1,0 +1,84 @@
+/* Скоуп внутри панели инструментов, чтобы не зацепить чужие меню */
+.plate-toolbar .custom-select { position: relative; display: inline-block; }
+
+.plate-toolbar .cs-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 0 28px 0 10px;
+  border-radius: 10px;
+  background: #fff;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+  font-size: 15px;
+  cursor: pointer;
+  line-height: 1;
+  transition: background .14s, box-shadow .14s, border-color .14s, color .14s;
+  position: relative;
+}
+
+/* Стрелка справа */
+.plate-toolbar .cs-trigger::after {
+  content: "";
+  position: absolute;
+  right: 8px;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 20 20' fill='none' stroke='%239CA3AF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 8 10 12 14 8'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+.plate-toolbar .cs-trigger:hover,
+.plate-toolbar .custom-select.cs-open .cs-trigger {
+  background: #f8fafc;
+  color: #111827;
+  border-color: #e5e7eb;
+}
+
+/* Само выпадающее меню */
+.plate-toolbar .cs-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 180px;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 12px;                  /* скругление как у platejs */
+  padding: 6px;
+  box-shadow:
+    0 10px 24px rgba(0,0,0,0.08),
+    0 2px 6px rgba(0,0,0,0.06);
+  display: none;
+  z-index: 1000;
+}
+
+.plate-toolbar .custom-select.cs-open .cs-menu { display: block; }
+
+.plate-toolbar .cs-option {
+  list-style: none;
+  border-radius: 8px;                   /* скругление пунктов */
+  padding: 8px 10px;
+  color: #111827;
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+}
+
+.plate-toolbar .cs-option:hover,
+.plate-toolbar .cs-option:focus {
+  background: #f3f4f6;                  /* серый hover/focus */
+}
+
+.plate-toolbar .cs-option[aria-selected="true"] {
+  background: #f3f4f6;                  /* выбранный пункт — серый */
+  font-weight: 500;
+}
+
+/* Иконки внутри пункта (если появятся) */
+.plate-toolbar .cs-option svg {
+  width: 16px; height: 16px; margin-right: 8px; flex-shrink: 0; pointer-events: none;
+}

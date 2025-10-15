@@ -1,0 +1,27 @@
+/* Оверрайды для темы "glass", чтобы поповеры были поверх редактора */
+.editor-wrap .toolbar {
+  position: relative;
+  z-index: 20;            /* тулбар выше области редактирования */
+  overflow: visible;      /* не обрезать поповеры */
+}
+
+/* На всякий случай фикс именно для glass */
+.editor-wrap .toolbar.toolbar--glass {
+  overflow: visible;
+}
+
+/* Поповеры (цвета/спецсимволы и т.п.) поверх всего */
+.editor-wrap .toolbar .popover {
+  position: absolute;
+  z-index: 1000;
+}
+.editor-wrap .toolbar .popover.chars {
+  position: absolute;
+  z-index: 1000;
+}
+
+/* Редактор ниже тулбара по слоям */
+.editor-wrap .ProseMirror {
+  position: relative;
+  z-index: 1;
+}
