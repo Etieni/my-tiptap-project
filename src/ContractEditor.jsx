@@ -158,16 +158,7 @@ export default function ContractEditor() {
   if (!editor) return <div className="ed-loading">Загрузка редактора…</div>
 
   const isActive = (name, attrs) => editor.isActive(name, attrs)
-  const isAlign = (value) => editor.isActive({ textAlign: value })
   const chainMaybeFocus = () => (editor.isFocused ? editor.chain().focus() : editor.chain())
-
-  const setLinkCmd = () => {
-    const prev = editor.getAttributes('link').href || ''
-    const url = window.prompt('Вставьте ссылку', prev)
-    if (url === null) return
-    if (url === '') return chainMaybeFocus().unsetLink().run()
-    chainMaybeFocus().setLink({ href: url }).run()
-  }
 
   const insertSpecialChar = (ch) => chainMaybeFocus().insertContent(ch).run()
   const setFontSizeCmd = (size) => chainMaybeFocus().setFontSize(size).run()
@@ -246,7 +237,7 @@ export default function ContractEditor() {
       e.preventDefault(); items[items.length - 1]?.focus()
     } else if (e.key === 'Escape') {
       e.preventDefault()
-      (menuRef.current?.previousElementSibling)?.focus()
+      menuRef.current?.previousElementSibling?.focus()
     } else if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
       document.activeElement?.click()
