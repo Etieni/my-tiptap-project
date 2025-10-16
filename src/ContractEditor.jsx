@@ -52,11 +52,6 @@ import {
 // Phosphor (для маркера)
 import { Highlighter } from '@phosphor-icons/react'
 
-import './ContractEditor.css'
-import './ToolbarThemes.css'
-import './ToolbarGlassFix.css'
-import './PlateLayout.css'
-
 export default function ContractEditor() {
   const [showHighlightColors, setShowHighlightColors] = useState(false)
   const [showSpecials, setShowSpecials] = useState(false)
