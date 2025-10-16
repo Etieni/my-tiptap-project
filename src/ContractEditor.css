@@ -1,15 +1,6 @@
-:root {
-  --teal-50: #f5faf9;
-  --teal-100: #eaf4f3;
-  --teal-200: #c4d7d4;
-  --teal-300: #a0bcb7;
-  --teal-400: #7da1a0;
-  --teal-500: #5a8689;
-  --teal-600: #42696b;
-  --teal-700: #2a4c4d;
-  --teal-800: #142f2f;
-}
-
+/* ============================================
+   ГЛАВНЫЙ КОНТЕЙНЕР
+   ============================================ */
 .editor-wrap {
   max-width: 1200px;
   margin: 0 auto;
@@ -17,19 +8,25 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
+/* ============================================
+   ТУЛБАР - БАЗОВЫЕ СТИЛИ
+   ============================================ */
 .toolbar {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
   padding: 8px;
-  background: var(--teal-50);
-  border: 1px solid var(--teal-200);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
   margin-bottom: 16px;
   align-items: center;
-  box-shadow: 0 1px 3px 0 rgba(164, 215, 212, 0.1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
+/* ============================================
+   ГРУППЫ КНОПОК
+   ============================================ */
 .plate-group {
   display: flex;
   gap: 2px;
@@ -51,9 +48,12 @@
   transform: translateY(-50%);
   height: 24px;
   width: 1px;
-  background: var(--teal-200);
+  background: #e5e7eb;
 }
 
+/* ============================================
+   УНИВЕРСАЛЬНЫЕ КНОПКИ - SUBTLE STYLE
+   ============================================ */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -61,42 +61,45 @@
   height: 32px;
   min-width: 32px;
   padding: 0 8px;
-  border: 1px solid var(--teal-200);
+  border: 1px solid rgba(229, 231, 235, 0.6);
   border-radius: 6px;
-  background: var(--teal-100);
-  color: var(--teal-700);
+  background: rgba(249, 250, 251, 0.5);
+  color: #374151;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.15s ease;
-  box-shadow: 0 1px 2px 0 rgba(164, 215, 212, 0.08);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
 }
 
 .btn:hover {
-  background: var(--teal-200);
-  border-color: var(--teal-400);
-  box-shadow: 0 2px 4px 0 rgba(164, 215, 212, 0.22);
+  background: #f9fafb;
+  border-color: #d1d5db;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
 }
 
 .btn:active {
-  background: var(--teal-300);
-  border-color: var(--teal-500);
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) inset;
   transform: scale(0.98);
 }
 
 .btn.active {
-  background: var(--teal-400);
-  border-color: var(--teal-600);
-  color: var(--teal-800);
-  box-shadow: 0 2px 4px 0 rgba(164, 215, 212, 0.28);
+  background: #dbeafe;
+  border-color: #93c5fd;
+  color: #1e40af;
+  box-shadow: 0 1px 3px 0 rgba(59, 130, 246, 0.15);
 }
 
+/* Убираем синюю обводку для кнопок */
 .btn:focus-visible {
-  outline: 2px solid var(--teal-500);
-  outline-offset: 2px;
+  outline: none;
 }
 
-/* ========== CUSTOM SELECT (DROPDOWN) ========== */
+/* ============================================
+   CUSTOM SELECT (DROPDOWN) - SUBTLE STYLE
+   ============================================ */
 .custom-select {
   position: relative;
   display: inline-block;
@@ -110,33 +113,34 @@
   min-width: 100px;
   padding: 0 8px 0 12px;
   gap: 8px;
-  border: 1px solid var(--teal-200);
+  border: 1px solid rgba(229, 231, 235, 0.6);
   border-radius: 6px;
-  background: var(--teal-100);
-  color: var(--teal-700);
+  background: rgba(249, 250, 251, 0.5);
+  color: #374151;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.15s ease;
   white-space: nowrap;
-  box-shadow: 0 1px 2px 0 rgba(164, 215, 212, 0.08);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
 }
 
 .cs-trigger:hover {
-  background: var(--teal-200);
-  border-color: var(--teal-400);
-  box-shadow: 0 1px 3px 0 rgba(164, 215, 212, 0.18);
+  background: #f9fafb;
+  border-color: #d1d5db;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
 }
 
 .cs-trigger:active,
 .cs-trigger[aria-expanded="true"] {
-  background: var(--teal-300);
-  border-color: var(--teal-500);
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) inset;
 }
 
+/* Убираем синюю обводку для custom select */
 .cs-trigger:focus-visible {
-  outline: 2px solid var(--teal-500);
-  outline-offset: 2px;
+  outline: none;
 }
 
 .cs-trigger .arrow {
@@ -150,11 +154,14 @@
   transform: rotate(180deg);
 }
 
+/* Узкие dropdown'ы */
 .cs-narrow .cs-trigger {
   min-width: 110px;
 }
 
-/* ========== DROPDOWN MENU ========== */
+/* ============================================
+   DROPDOWN MENU
+   ============================================ */
 .cs-menu {
   position: absolute;
   top: calc(100% + 4px);
@@ -163,13 +170,13 @@
   min-width: 160px;
   max-height: 280px;
   overflow-y: auto;
-  background: var(--teal-50);
-  border: 1px solid var(--teal-200);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 4px;
   margin: 0;
   list-style: none;
-  box-shadow: 0 4px 6px -1px rgba(164, 215, 212, 0.18), 0 2px 4px -1px rgba(164, 215, 212, 0.14);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   animation: slideDown 0.15s ease;
 }
 
@@ -189,7 +196,7 @@
   align-items: center;
   padding: 8px 12px;
   font-size: 14px;
-  color: var(--teal-700);
+  color: #374151;
   cursor: pointer;
   border-radius: 4px;
   transition: all 0.1s ease;
@@ -197,33 +204,35 @@
 }
 
 .cs-option:hover {
-  background: var(--teal-100);
-  border-color: var(--teal-400);
+  background: #f3f4f6;
+  border-color: rgba(229, 231, 235, 0.6);
 }
 
 .cs-option[aria-selected="true"] {
-  background: var(--teal-200);
-  color: var(--teal-800);
+  background: #dbeafe;
+  color: #1e40af;
   font-weight: 500;
-  border-color: var(--teal-500);
+  border-color: #93c5fd;
 }
 
 .cs-option:focus {
   outline: none;
-  background: var(--teal-100);
-  border-color: var(--teal-600);
+  background: #f3f4f6;
+  border-color: #3b82f6;
 }
 
-/* ========== РАЗМЕР ШРИФТА ========== */
+/* ============================================
+   РАЗМЕР ШРИФТА - SEGMENTED CONTROL
+   ============================================ */
 .fs-control {
   position: relative;
   display: inline-flex;
-  background: var(--teal-100);
-  border: 1px solid var(--teal-200);
+  background: rgba(249, 250, 251, 0.5);
+  border: 1px solid rgba(229, 231, 235, 0.6);
   border-radius: 6px;
   padding: 2px;
   gap: 1px;
-  box-shadow: 0 1px 2px 0 rgba(164, 215, 212, 0.08);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
 }
 
 .fs-seg {
@@ -236,7 +245,7 @@
   border: none;
   border-radius: 4px;
   background: transparent;
-  color: var(--teal-700);
+  color: #374151;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
@@ -244,11 +253,11 @@
 }
 
 .fs-seg:hover {
-  background: var(--teal-50);
+  background: rgba(243, 244, 246, 0.8);
 }
 
 .fs-seg:active {
-  background: var(--teal-200);
+  background: #e5e7eb;
   transform: scale(0.96);
 }
 
@@ -263,25 +272,27 @@
 }
 
 .fs-dropdown {
-  border-right: 1px solid var(--teal-200);
+  border-right: 1px solid rgba(229, 231, 235, 0.6);
   padding-right: 8px;
   margin-right: 2px;
 }
 
-/* ========== POPOVER ========== */
+/* ============================================
+   POPOVER (ЦВЕТА, СИМВОЛЫ)
+   ============================================ */
 .popover {
   position: absolute;
   top: calc(100% + 4px);
   left: 0;
   z-index: 1000;
-  background: var(--teal-100);
-  border: 1px solid var(--teal-200);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 8px;
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
-  box-shadow: 0 4px 6px -1px rgba(164, 215, 212, 0.28), 0 2px 4px -1px rgba(164, 215, 212, 0.18);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   animation: slideDown 0.15s ease;
 }
 
@@ -293,21 +304,21 @@
 .color {
   width: 28px;
   height: 28px;
-  border: 1px solid var(--teal-200);
+  border: 1px solid rgba(229, 231, 235, 0.6);
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s ease;
-  box-shadow: 0 1px 2px 0 rgba(164, 215, 212, 0.18);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .color:hover {
   transform: scale(1.1);
-  border-color: var(--teal-400);
-  box-shadow: 0 2px 4px 0 rgba(164, 215, 212, 0.18);
+  border-color: #9ca3af;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
 
 .color.clear {
-  background: var(--teal-50);
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -323,85 +334,91 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--teal-100);
-  border: 1px solid var(--teal-200);
+  background: rgba(249, 250, 251, 0.5);
+  border: 1px solid rgba(229, 231, 235, 0.6);
   border-radius: 6px;
   font-size: 16px;
   cursor: pointer;
   transition: all 0.15s ease;
-  box-shadow: 0 1px 2px 0 rgba(164, 215, 212, 0.08);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
 }
 
 .char:hover {
-  background: var(--teal-200);
-  border-color: var(--teal-400);
+  background: #f3f4f6;
+  border-color: #d1d5db;
   transform: translateY(-1px);
-  box-shadow: 0 2px 4px 0 rgba(164, 215, 212, 0.18);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
 }
 
 .char:active {
   transform: translateY(0);
-  box-shadow: 0 1px 2px 0 rgba(164, 215, 212, 0.08);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
-/* ========== РЕДАКТОР ========== */
+/* ============================================
+   РЕДАКТОР
+   ============================================ */
 .ProseMirror {
   min-height: 400px;
   padding: 24px;
-  background: var(--teal-50);
-  border: 1px solid var(--teal-200);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
   font-size: 16px;
   line-height: 1.5;
-  color: var(--teal-800);
+  color: #1f2937;
   outline: none;
-  box-shadow: 0 1px 2px 0 rgba(164, 215, 212, 0.08);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   transition: all 0.15s ease;
 }
 
 .ProseMirror:focus {
-  border-color: var(--teal-400);
-  box-shadow: 0 0 0 3px rgba(164, 215, 212, 0.18);
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .ProseMirror p.is-editor-empty:first-child::before {
   content: attr(data-placeholder);
   float: left;
-  color: var(--teal-400);
+  color: #9ca3af;
   pointer-events: none;
   height: 0;
 }
 
-/* ========== ЗАГРУЗКА ========== */
+/* ============================================
+   ЗАГРУЗКА
+   ============================================ */
 .ed-loading {
   padding: 40px;
   text-align: center;
-  color: var(--teal-600);
+  color: #6b7280;
   font-size: 14px;
 }
 
-/* ========== SELECT ДЛЯ ТЕМЫ ========== */
+/* ============================================
+   SELECT ДЛЯ ТЕМЫ
+   ============================================ */
 .select {
   padding: 6px 12px;
-  border: 1px solid var(--teal-200);
+  border: 1px solid rgba(229, 231, 235, 0.6);
   border-radius: 6px;
-  background: var(--teal-100);
-  color: var(--teal-700);
+  background: rgba(249, 250, 251, 0.5);
+  color: #374151;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.15s ease;
-  box-shadow: 0 1px 2px 0 rgba(164, 215, 212, 0.08);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
 }
 
 .select:hover {
-  border-color: var(--teal-400);
-  background: var(--teal-200);
-  box-shadow: 0 1px 3px 0 rgba(164, 215, 212, 0.18);
+  border-color: #d1d5db;
+  background: #f9fafb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
 }
 
+/* Убираем синюю обводку для select */
 .select:focus {
-  outline: 2px solid var(--teal-500);
-  outline-offset: 2px;
-  border-color: var(--teal-500);
+  outline: none;
+  border-color: #d1d5db;
 }
