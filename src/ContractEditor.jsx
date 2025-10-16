@@ -76,13 +76,13 @@ const HIGHLIGHT_COLORS = ['#fff59d', '#bbf7d0', '#bfdbfe', '#fde68a', '#fecaca',
 export default function ContractEditor() {
   const [showHighlightColors, setShowHighlightColors] = useState(false)
   const [showSpecials, setShowSpecials] = useState(false)
-  const [showLHSelect, setShowLHSelect] = useState(false)
   const [theme, setTheme] = useState('toolbar--minimal')
 
   // Кастомные dropdown'ы
   const [showHeadingMenu, setShowHeadingMenu] = useState(false)
   const [showFontMenu, setShowFontMenu] = useState(false)
   const [showSizeMenu, setShowSizeMenu] = useState(false)
+  const [showLineHeightMenu, setShowLineHeightMenu] = useState(false)
 
   const headingCsRef = useRef(null)
   const headingMenuRef = useRef(null)
@@ -90,8 +90,8 @@ export default function ContractEditor() {
   const fontMenuRef = useRef(null)
   const sizeCsRef = useRef(null)
   const sizeMenuRef = useRef(null)
-
-  const lhSelectRef = useRef(null)
+  const lineHeightCsRef = useRef(null)
+  const lineHeightMenuRef = useRef(null)
 
   const extensions = useMemo(
     () => [
@@ -149,6 +149,7 @@ export default function ContractEditor() {
       if (headingCsRef.current && !headingCsRef.current.contains(e.target)) setShowHeadingMenu(false)
       if (fontCsRef.current && !fontCsRef.current.contains(e.target)) setShowFontMenu(false)
       if (sizeCsRef.current && !sizeCsRef.current.contains(e.target)) setShowSizeMenu(false)
+      if (lineHeightCsRef.current && !lineHeightCsRef.current.contains(e.target)) setShowLineHeightMenu(false)
     }
     document.addEventListener('mousedown', onDocDown)
     return () => document.removeEventListener('mousedown', onDocDown)
@@ -210,6 +211,7 @@ export default function ContractEditor() {
   }
   const applyFont = (v) => { setFont(v); setShowFontMenu(false) }
   const applyFontSize = (v) => { setFontSizeCmd(v); setShowSizeMenu(false) }
+  const applyLineHeight = (v) => { setLH(v); setShowLineHeightMenu(false) }
 
   // Инкремент/декремент размера
   const sizeIndex = FONT_SIZES.indexOf(String(currentFontSize).endsWith('px') ? String(currentFontSize) : `${currentFontSizeNum}px`)
@@ -250,19 +252,6 @@ export default function ContractEditor() {
       document.activeElement?.click()
     }
   }
-
-  const openLHSelect = () => {
-    setShowLHSelect(true)
-    requestAnimationFrame(() => {
-      const sel = lhSelectRef.current
-      if (!sel) return
-      sel.value = getCurrentLH()
-      sel.focus({ preventScroll: true })
-      if (typeof sel.showPicker === 'function') sel.showPicker()
-      else sel.click()
-    })
-  }
-  const closeLHSelect = () => setShowLHSelect(false)
 
   return (
     <div className="editor-wrap">
@@ -429,38 +418,46 @@ export default function ContractEditor() {
             )}
           </div>
 
-          {/* Межстрочный интервал — оставляем нативный селект во всплывашке */}
-          <div className="group" style={{ position: 'relative' }}>
+          {/* Межстрочный интервал — кастомный dropdown */}
+          <div className="custom-select" ref={lineHeightCsRef}>
             <button
-              className="btn"
-              onClick={openLHSelect}
-              title="Межстрочный интервал"
+              type="button"
+              className="cs-trigger"
               aria-haspopup="listbox"
-              aria-expanded={showLHSelect}
+              aria-expanded={showLineHeightMenu}
+              aria-controls="cs-menu-lineheight"
+              onClick={() => setShowLineHeightMenu((v) => !v)}
+              onKeyDown={onTriggerKeyOpen(setShowLineHeightMenu)}
+              title="Межстрочный интервал"
             >
               <IconLineHeight size={18} stroke={1.6} />
+              <span className="arrow" aria-hidden="true">
+                <IconChevronDown size={14} stroke={2} />
+              </span>
             </button>
-            {showLHSelect && (
-              <select
-                ref={lhSelectRef}
-                className="select"
-                defaultValue={getCurrentLH()}
-                onChange={(e) => { setLH(e.target.value); closeLHSelect() }}
-                onBlur={closeLHSelect}
-                onKeyDown={(e) => { if (e.key === 'Escape') closeLHSelect() }}
-                style={{
-                  position: 'absolute',
-                  top: 'calc(100% + 8px)',
-                  left: 0,
-                  zIndex: 1000,
-                  width: 160,
-                  height: 34,
-                }}
+            {showLineHeightMenu && (
+              <ul
+                id="cs-menu-lineheight"
+                className="cs-menu"
+                role="listbox"
+                tabIndex={-1}
+                ref={lineHeightMenuRef}
+                onKeyDown={onMenuKeyNav(lineHeightMenuRef)}
               >
                 {LINE_HEIGHTS.map(lh => (
-                  <option key={lh.value} value={lh.value}>{lh.label}</option>
+                  <li
+                    key={lh.value}
+                    className="cs-option"
+                    role="option"
+                    data-value={lh.value}
+                    aria-selected={getCurrentLH() === lh.value ? 'true' : 'false'}
+                    tabIndex={-1}
+                    onClick={() => applyLineHeight(lh.value)}
+                  >
+                    {lh.label}
+                  </li>
                 ))}
-              </select>
+              </ul>
             )}
           </div>
         </div>
