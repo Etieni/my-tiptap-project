@@ -16,24 +16,29 @@ import FontFamily from '@tiptap/extension-font-family'
 import FontSize from './extensions/fontSize'
 import LineHeight from './extensions/lineHeight'
 
+// Импорт констант
+import {
+  FONTS,
+  FONT_SIZES,
+  LINE_HEIGHTS,
+  HEADING_OPTIONS,
+  HIGHLIGHT_COLORS,
+  SPECIAL_CHARS,
+} from './constants/editorConfig'
+
+// Импорт хуков
+import { useEditorCommands } from './hooks/useEditorCommands'
+
 // Tabler Icons
 import {
   IconBold,
   IconItalic,
   IconUnderline,
   IconStrikethrough,
-  IconLink,
   IconList,
   IconListNumbers,
-  IconQuote,
   IconArrowBackUp,
   IconArrowForwardUp,
-  IconAlignLeft,
-  IconAlignCenter,
-  IconAlignRight,
-  IconAlignJustified,
-  IconSubscript,
-  IconSuperscript,
   IconEraser,
   IconIndentIncrease,
   IconIndentDecrease,
@@ -51,27 +56,6 @@ import './ContractEditor.css'
 import './ToolbarThemes.css'
 import './ToolbarGlassFix.css'
 import './PlateLayout.css'
-
-const FONTS = [
-  { label: 'Inter', value: 'Inter, system-ui, Avenir, Helvetica, Arial, sans-serif' },
-  { label: 'Noto Sans', value: '"Noto Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif' },
-  { label: 'Noto Serif', value: '"Noto Serif", Georgia, Times, serif' },
-  { label: 'Roboto', value: 'Roboto, system-ui, -apple-system, Segoe UI, Arial, sans-serif' },
-  { label: 'Roboto Mono', value: '"Roboto Mono", ui-monospace, SFMono-Regular, Menlo, monospace' },
-  { label: 'Monomakh', value: 'Monomakh, serif' },
-]
-
-const FONT_SIZES = ['12px', '14px', '16px', '18px', '20px', '24px', '28px', '32px']
-const LINE_HEIGHTS = [
-  { label: '1 (плотно)', value: '1' },
-  { label: '1.15', value: '1.15' },
-  { label: '1.35', value: '1.35' },
-  { label: '1.5', value: '1.5' },
-  { label: '1.75', value: '1.75' },
-  { label: '2 (разряжено)', value: '2' },
-]
-
-const HIGHLIGHT_COLORS = ['#fff59d', '#bbf7d0', '#bfdbfe', '#fde68a', '#fecaca', '#e9d5ff', '#c7d2fe', '#f5d0fe']
 
 export default function ContractEditor() {
   const [showHighlightColors, setShowHighlightColors] = useState(false)
@@ -125,6 +109,17 @@ export default function ContractEditor() {
     content: '<p>Введите текст договора…</p>',
   })
 
+  // Используем хук команд
+  const {
+    chainMaybeFocus,
+    setFontSize: setFontSizeCmd,
+    setFont,
+    setLineHeight: setLH,
+    getCurrentLineHeight: getCurrentLH,
+    insertSpecialChar,
+    applyHeading,
+  } = useEditorCommands(editor)
+
   useEffect(() => {
     if (!editor) return
     editor.chain().setFontFamily(FONTS[0].value).setFontSize('16px').setLineHeight('1.5').run()
@@ -158,19 +153,6 @@ export default function ContractEditor() {
   if (!editor) return <div className="ed-loading">Загрузка редактора…</div>
 
   const isActive = (name, attrs) => editor.isActive(name, attrs)
-  const chainMaybeFocus = () => (editor.isFocused ? editor.chain().focus() : editor.chain())
-
-  const insertSpecialChar = (ch) => chainMaybeFocus().insertContent(ch).run()
-  const setFontSizeCmd = (size) => chainMaybeFocus().setFontSize(size).run()
-  const setFont = (family) =>
-    family ? chainMaybeFocus().setFontFamily(family).run() : chainMaybeFocus().unsetFontFamily().run()
-  const setLH = (lh) => chainMaybeFocus().setLineHeight(lh).run()
-
-  const getCurrentLH = () => {
-    const p = editor.getAttributes('paragraph')?.lineHeight
-    const h = editor.getAttributes('heading')?.lineHeight
-    return p || h || '1.5'
-  }
 
   // Текущее состояние для триггеров
   const currentHeadingValue =
@@ -178,12 +160,6 @@ export default function ContractEditor() {
     isActive('heading', { level: 2 }) ? 'h2' :
     isActive('heading', { level: 3 }) ? 'h3' : 'p'
 
-  const HEADING_OPTIONS = [
-    { value: 'p', label: 'Параграф' },
-    { value: 'h1', label: 'Заголовок 1' },
-    { value: 'h2', label: 'Заголовок 2' },
-    { value: 'h3', label: 'Заголовок 3' },
-  ]
   const currentHeadingLabel = HEADING_OPTIONS.find(o => o.value === currentHeadingValue)?.label ?? 'Параграф'
 
   const currentFontValue = editor.getAttributes('textStyle')?.fontFamily || FONTS[0].value
@@ -193,11 +169,8 @@ export default function ContractEditor() {
   const currentFontSizeNum = parseInt(String(currentFontSize).replace('px', ''), 10) || 16
 
   // Применение опций
-  const applyHeading = (v) => {
-    if (v === 'p') chainMaybeFocus().setParagraph().run()
-    if (v === 'h1') chainMaybeFocus().toggleHeading({ level: 1 }).run()
-    if (v === 'h2') chainMaybeFocus().toggleHeading({ level: 2 }).run()
-    if (v === 'h3') chainMaybeFocus().toggleHeading({ level: 3 }).run()
+  const applyHeadingLocal = (v) => {
+    applyHeading(v)
     setShowHeadingMenu(false)
   }
   const applyFont = (v) => { setFont(v); setShowFontMenu(false) }
@@ -305,7 +278,7 @@ export default function ContractEditor() {
                     data-value={opt.value}
                     aria-selected={currentHeadingValue === opt.value ? 'true' : 'false'}
                     tabIndex={-1}
-                    onClick={() => applyHeading(opt.value)}
+                    onClick={() => applyHeadingLocal(opt.value)}
                   >
                     {opt.label}
                   </li>
@@ -515,7 +488,7 @@ export default function ContractEditor() {
           </button>
           {showSpecials && (
             <div className="popover chars">
-              {['§','—','–','•','№','«','»','“','”','™','®','©'].map(ch => (
+              {SPECIAL_CHARS.map(ch => (
                 <button key={ch} className="char" onClick={() => insertSpecialChar(ch)}>{ch}</button>
               ))}
             </div>
