@@ -1,0 +1,424 @@
+/* ============================================
+   ГЛАВНЫЙ КОНТЕЙНЕР
+   ============================================ */
+.editor-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ============================================
+   ТУЛБАР - БАЗОВЫЕ СТИЛИ
+   ============================================ */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 8px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  align-items: center;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* ============================================
+   ГРУППЫ КНОПОК
+   ============================================ */
+.plate-group {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  align-items: center;
+}
+
+.plate-group + .plate-group {
+  position: relative;
+  margin-left: 4px;
+  padding-left: 8px;
+}
+
+.plate-group + .plate-group::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 24px;
+  width: 1px;
+  background: #e5e7eb;
+}
+
+/* ============================================
+   УНИВЕРСАЛЬНЫЕ КНОПКИ - SUBTLE STYLE
+   ============================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  min-width: 32px;
+  padding: 0 8px;
+  border: 1px solid rgba(229, 231, 235, 0.6);
+  border-radius: 6px;
+  background: rgba(249, 250, 251, 0.5);
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+}
+
+.btn:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+}
+
+.btn:active {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) inset;
+  transform: scale(0.98);
+}
+
+.btn.active {
+  background: #dbeafe;
+  border-color: #93c5fd;
+  color: #1e40af;
+  box-shadow: 0 1px 3px 0 rgba(59, 130, 246, 0.15);
+}
+
+.btn:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* ============================================
+   CUSTOM SELECT (DROPDOWN) - SUBTLE STYLE
+   ============================================ */
+.custom-select {
+  position: relative;
+  display: inline-block;
+}
+
+.cs-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+  min-width: 100px;
+  padding: 0 8px 0 12px;
+  gap: 8px;
+  border: 1px solid rgba(229, 231, 235, 0.6);
+  border-radius: 6px;
+  background: rgba(249, 250, 251, 0.5);
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+}
+
+.cs-trigger:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+}
+
+.cs-trigger:active,
+.cs-trigger[aria-expanded="true"] {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) inset;
+}
+
+.cs-trigger:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.cs-trigger .arrow {
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease;
+  opacity: 0.6;
+}
+
+.cs-trigger[aria-expanded="true"] .arrow {
+  transform: rotate(180deg);
+}
+
+/* Узкие dropdown'ы */
+.cs-narrow .cs-trigger {
+  min-width: 110px;
+}
+
+/* ============================================
+   DROPDOWN MENU
+   ============================================ */
+.cs-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 1000;
+  min-width: 160px;
+  max-height: 280px;
+  overflow-y: auto;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 4px;
+  margin: 0;
+  list-style: none;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  animation: slideDown 0.15s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cs-option {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.1s ease;
+  border: 1px solid transparent;
+}
+
+.cs-option:hover {
+  background: #f3f4f6;
+  border-color: rgba(229, 231, 235, 0.6);
+}
+
+.cs-option[aria-selected="true"] {
+  background: #dbeafe;
+  color: #1e40af;
+  font-weight: 500;
+  border-color: #93c5fd;
+}
+
+.cs-option:focus {
+  outline: none;
+  background: #f3f4f6;
+  border-color: #3b82f6;
+}
+
+/* ============================================
+   РАЗМЕР ШРИФТА - SEGMENTED CONTROL
+   ============================================ */
+.fs-control {
+  position: relative;
+  display: inline-flex;
+  background: rgba(249, 250, 251, 0.5);
+  border: 1px solid rgba(229, 231, 235, 0.6);
+  border-radius: 6px;
+  padding: 2px;
+  gap: 1px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+}
+
+.fs-seg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  min-width: 28px;
+  padding: 0 6px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.fs-seg:hover {
+  background: rgba(243, 244, 246, 0.8);
+}
+
+.fs-seg:active {
+  background: #e5e7eb;
+  transform: scale(0.96);
+}
+
+.fs-value {
+  cursor: default;
+  min-width: 32px;
+  font-variant-numeric: tabular-nums;
+}
+
+.fs-value:hover {
+  background: transparent;
+}
+
+.fs-dropdown {
+  border-right: 1px solid rgba(229, 231, 235, 0.6);
+  padding-right: 8px;
+  margin-right: 2px;
+}
+
+/* ============================================
+   POPOVER (ЦВЕТА, СИМВОЛЫ)
+   ============================================ */
+.popover {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 1000;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  animation: slideDown 0.15s ease;
+}
+
+.popover.chars {
+  max-width: 220px;
+}
+
+/* Цвета маркера */
+.color {
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(229, 231, 235, 0.6);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.color:hover {
+  transform: scale(1.1);
+  border-color: #9ca3af;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.color.clear {
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #ef4444;
+  font-weight: 600;
+}
+
+/* Спецсимволы */
+.char {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(249, 250, 251, 0.5);
+  border: 1px solid rgba(229, 231, 235, 0.6);
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+}
+
+.char:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+}
+
+.char:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* ============================================
+   РЕДАКТОР
+   ============================================ */
+.ProseMirror {
+  min-height: 400px;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #1f2937;
+  outline: none;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.15s ease;
+}
+
+.ProseMirror:focus {
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #9ca3af;
+  pointer-events: none;
+  height: 0;
+}
+
+/* ============================================
+   ЗАГРУЗКА
+   ============================================ */
+.ed-loading {
+  padding: 40px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* ============================================
+   SELECT ДЛЯ ТЕМЫ
+   ============================================ */
+.select {
+  padding: 6px 12px;
+  border: 1px solid rgba(229, 231, 235, 0.6);
+  border-radius: 6px;
+  background: rgba(249, 250, 251, 0.5);
+  color: #374151;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+}
+
+.select:hover {
+  border-color: #d1d5db;
+  background: #f9fafb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+}
+
+.select:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-color: #3b82f6;
+}
